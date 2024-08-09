@@ -3,10 +3,12 @@
 
 use App\Http\Controllers\Frontend\BannerController;
 use App\Http\Controllers\Frontend\CategoryController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CollectionController;
 use App\Http\Controllers\Frontend\CommonController;
 use App\Http\Controllers\Frontend\ContactController;
 use App\Http\Controllers\Frontend\OfferController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\Frontend\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,3 +41,9 @@ Route::get('/get-category-id', [ProductController::class, 'categoryId']);
 
 // * contact routes
 Route::post('/contact-store', [ContactController::class, 'store']);
+
+// * checkout route
+Route::post('/checkout/{user_id}', [CheckoutController::class, 'checkOut']);
+
+// * order item route
+Route::get('/order-items/{user_id}', [OrderController::class, 'getOrderItems']);
