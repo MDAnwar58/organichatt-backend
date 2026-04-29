@@ -33,7 +33,7 @@ class SignUpController extends Controller
             $user->password = bcrypt($request->password);
             $user->save();
 
-            $token = JWTToken::createToken($user->id, $user->name, $user->email, 7);
+            $token = JWTToken::createToken($user->id, $user->name, $user->email, $user->phone_number, $user->role, $user->avatar, 7);
             $data = [
                 'token' => $token,
             ];

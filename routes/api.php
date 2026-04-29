@@ -12,19 +12,27 @@ use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\CollectionController;
 use App\Http\Controllers\Backend\ColorController;
+use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\GalleryCategoryController;
 use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\OfferController;
+use App\Http\Controllers\Backend\OrderController;
+use App\Http\Controllers\Backend\OrderReviewController;
+use App\Http\Controllers\Backend\PrivacyPolicyController;
 use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\ProductImageController;
 use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Backend\SizeNumberController;
+use App\Http\Controllers\Backend\SocialLinkController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\TermsAndConditionController;
+use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\WeightController;
 use App\Http\Controllers\Frontend\CommonController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
+// require __DIR__ . '/api_frontend.php';
 // Route::get('/user', function (Request $request) {
 //     return $request->user();
 // })->middleware('auth:sanctum');
@@ -161,6 +169,46 @@ Route::get('/offer-status/{id}', [OfferController::class, 'status']);
 Route::get('/offer-edit/{id}', [OfferController::class, 'edit']);
 Route::post('/offer-update/{id}', [OfferController::class, 'update']);
 Route::get('/offer-delete/{id}', [OfferController::class, 'destroy']);
+
+Route::prefix('admin')->group(function () {
+        // * common routes
+        Route::get('/is-read-review-count', [OrderReviewController::class, 'count']);
+
+        Route::get('/dashboard', [DashboardController::class, 'get']);
+
+        // * users route 
+        Route::get('/users-get', [UserController::class, 'get']);
+        Route::post('/user-store', [UserController::class, 'store']);
+        Route::get('/user-permission/{id}', [UserController::class, 'permission']);
+        Route::get('/user-edit/{id}', [UserController::class, 'edit']);
+        Route::post('/user-update/{id}', [UserController::class, 'update']);
+        Route::get('/user-delete/{id}', [UserController::class, 'destroy']);
+
+        // * order routes
+        Route::get('/orders-count', [OrderController::class, 'count']);
+        Route::get('/orders-get', [OrderController::class, 'get']);
+        Route::get('/change-order-status/{id}', [OrderController::class, 'status']);
+        Route::get('/invoice/{id}', [OrderController::class, 'show']);
+        Route::get('/order-delete/{id}', [OrderController::class, 'destory']);
+
+        // * privacy policy routes
+        Route::get('/privacy-policy-get', [PrivacyPolicyController::class, 'get']);
+        Route::post('/privacy-policy-store', [PrivacyPolicyController::class, 'store']);
+
+        // * terms and condition routes
+        Route::get('/terms-and-condition-get', [TermsAndConditionController::class, 'get']);
+        Route::post('/terms-and-condition-store', [TermsAndConditionController::class, 'store']);
+
+        // * terms and condition routes
+        Route::get('/social-links-get', [SocialLinkController::class, 'get']);
+        Route::post('/social-link-store', [SocialLinkController::class, 'store']);
+        Route::post('/social-link-update/{id}', [SocialLinkController::class, 'update']);
+        Route::get('/social-link-delete/{id}', [SocialLinkController::class, 'destroy']);
+
+        // * reviews routes
+        Route::get('/reviews', [OrderReviewController::class, 'get']);
+        Route::get('/review-delete/{id}', [OrderReviewController::class, 'destory']);
+});
 
 
 // * brands routes

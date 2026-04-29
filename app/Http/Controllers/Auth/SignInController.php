@@ -25,7 +25,7 @@ class SignInController extends Controller
 
         $user = User::where('email', $request->email)->first();
         if (password_verify($request->password, $user->password)) {
-            $token = JWTToken::createToken($user->id, $user->name, $user->email, 7);
+            $token = JWTToken::createToken($user->id, $user->name, $user->email, $user->phone_number, $user->role, $user->avatar, 7);
             $data = [
                 'token' => $token
             ];
@@ -43,7 +43,7 @@ class SignInController extends Controller
 
         $user = User::where('email', $request->email)->first();
         if (password_verify($request->password, $user->password)) {
-            $token = JWTToken::createToken($user->id, $user->name, $user->email, 7);
+            $token = JWTToken::createToken($user->id, $user->name, $user->email, $user->phone_number, $user->role, $user->avatar, 7);
             return Response::Out("success", "", $token, 200);
         }
 

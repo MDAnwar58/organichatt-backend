@@ -101,4 +101,12 @@ class Product extends Model
     {
         return $this->hasMany(Offer::class, "product_id");
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'product_id');
+    }
+    public function review()
+    {
+        return $this->hasOne(Review::class, 'product_id');
+    }
 }

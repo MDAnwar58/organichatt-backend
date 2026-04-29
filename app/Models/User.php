@@ -19,6 +19,10 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone_number',
+        'role',
+        'permission',
+        'avatar',
         'password',
     ];
 
@@ -43,5 +47,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function shippingInfo()
+    {
+        return $this->hasOne(ShippingInfo::class, 'user_id', 'id');
     }
 }

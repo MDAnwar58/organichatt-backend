@@ -17,8 +17,12 @@ use App\Http\Middleware\AuthUser;
 use App\Http\Middleware\GuestUser;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function() {
+    return view('welcome-in-laravel');
+});
+
 Route::middleware([AuthUser::class])->group(function () {
-    Route::get('/', [HomeController::class, 'home'])->name('home');
+    //Route::get('/', [HomeController::class, 'home'])->name('home');
     Route::get('/category-list', [CategoryController::class, 'index'])->name('category.list');
     Route::get('/products', [ProductController::class, 'index'])->name('products');
     Route::get('/product/{slug}', [ProductController::class, 'show'])->name('product.show');

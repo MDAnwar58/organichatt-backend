@@ -29,6 +29,7 @@ class ProductResource extends JsonResource
             'brand' => new ModalProductBrandResource($this->whenLoaded('brand')),
             'category' => new ModalProductCategoryResource($this->whenLoaded('category')),
             'sub_category' => new ModalProductSubCategoryResource($this->whenLoaded('sub_category')),
+            'avg_rating' => number_format($this->reviews?->avg('rating') ?? 0, 1),
             // Include other product fields as needed
         ];
     }

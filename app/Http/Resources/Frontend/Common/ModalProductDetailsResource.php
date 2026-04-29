@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Frontend\Common;
 
+use App\Http\Resources\Frontend\ReviewGetResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -35,6 +36,7 @@ class ModalProductDetailsResource extends JsonResource
             'weights' => ModalProductWeightsResource::collection($this->whenLoaded('product_weights')),
             'images' => ModalProductImagesResource::collection($this->whenLoaded('product_images')),
             'offers' => ModalProductOfferResource::collection($this->whenLoaded('offers')),
+            'reviews' => ReviewGetResource::collection($this->reviews),
         ];
     }
 }

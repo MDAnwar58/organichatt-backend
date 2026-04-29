@@ -10,12 +10,35 @@ use App\Http\Resources\Frontend\Common\FavoritesResource;
 use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Favorite;
+use App\Models\PrivacyPolicy;
 use App\Models\Product;
+use App\Models\SocialLink;
+use App\Models\TermsAndCondition;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommonController extends Controller
 {
+    public function appHeaderData()
+    {
+        return [
+            'super_admin' => User::select(['id', 'email', 'phone_number'])
+                ->where('role', 'super-admin')
+                ->first(),
+            'facebook_group' => SocialLink::where('title', 'Facebook Page')->first()
+        ];
+    }
+    public function appFooterData()
+    {
+        $privacy_policy = PrivacyPolicy::first();
+        $terms_and_condition = TermsAndCondition::first();
+        $social_links = SocialLink::oldest()->get();
+        return [
+            'privacy_policy' => $privacy_policy,
+            'terms_and_condition' => $terms_and_condition,
+            'social_links' => $social_links
+        ];
+    }
     public function get()
     {
         $categories = Category::where('status', operator: 'active')->with('sub_categories')->latest()->get();
